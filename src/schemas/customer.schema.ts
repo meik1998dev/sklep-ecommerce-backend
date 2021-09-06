@@ -5,7 +5,7 @@ import { Review } from './review.schema';
 import * as mongoose from 'mongoose';
 
 @Schema()
-export class User {
+export class Customer {
   @Prop({ required: true })
   first_name: string;
 
@@ -31,4 +31,4 @@ export class User {
   favoraits: Record<any, any>;
 }
 
-export var UserSchema = SchemaFactory.createForClass(User);
+export var CustomerSchema = SchemaFactory.createForClass(Customer);

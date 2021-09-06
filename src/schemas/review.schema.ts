@@ -1,5 +1,5 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import { User } from './user.schema';
+import { Customer } from './customer.schema';
 import * as mongoose from 'mongoose';
 import { Seller } from './seller.schema';
 
@@ -11,9 +11,13 @@ export class Review {
   @Prop()
   describtion: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' })
-  user: User;
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Customer',
+  })
+  customerId: Customer;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Seller' })
-  seller: Seller;
+  sellerId: Seller;
 }

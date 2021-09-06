@@ -15,12 +15,15 @@ export class SellersController {
     return this.sellerService.createSeller(createSellerDto);
   }
 
-  @Put(':id')
+  @Put('profile')
   updateProfile(
     @Param('id') id: string,
     @Body() createSellerDto: CreateSellerDto,
   ) {
-    return this.sellerService.updateSeller(id, createSellerDto);
+    return this.sellerService.updateSeller(
+      '6135207bc44d401934aad40d',
+      createSellerDto,
+    );
   }
 
   @Get('profile')
