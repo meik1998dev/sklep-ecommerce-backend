@@ -23,7 +23,7 @@ export class Customer {
   @Prop()
   profile_image: string;
 
-  @Prop([Order])
+  @Prop()
   orders: Order[];
 
   @Prop([Review])

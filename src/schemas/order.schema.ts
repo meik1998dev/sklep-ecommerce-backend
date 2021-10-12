@@ -3,30 +3,32 @@ import * as mongoose from 'mongoose';
 import { Product } from './product.schema';
 import { Customer } from './customer.schema';
 
-export type OrderDocument = Order & Document;
-
-@Schema()
-export class Order {
-  @Prop()
-  ordersList: Cart[];
-
-  @Prop({
+export const OrderSchema = new mongoose.Schema({
+  customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Customer',
     required: true,
-  })
-  customerId: Customer;
+  },
+  products: [
+    {
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+      },
+    },
+  ],
+});
+
+export interface Order extends Document {
+  customer: Customer;
+  products: ProductOrder[];
 }
 
-@Schema()
-export class Cart {
-  @Prop()
+interface ProductOrder {
+  product: Product;
   quantity: number;
-
-  @Prop({ type: mongoose.SchemaTypes.ObjectId, ref: 'Product' })
-  productId: Product;
 }
-
-export var CartSchema = SchemaFactory.createForClass(Cart);
-
-export var OrderSchema = SchemaFactory.createForClass(Order);
