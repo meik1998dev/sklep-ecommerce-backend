@@ -22,11 +22,11 @@ export class ProductsController {
   @Post('add')
   async CreateProduct(@Body() productDto: ProductDto) {
     // find the seller that will add the product
-    const seller = await this.sellerService.findSellerById(
+    const seller = await this.sellerService.findById(
       '6135207bc44d401934aad40d',
     );
     // create a product according to the body request
-    const createdProduct = await this.productService.createProduct(
+    const createdProduct = await this.productService.create(
       seller._id,
       productDto,
     );
@@ -38,14 +38,11 @@ export class ProductsController {
   // Update product informations
   @Put(':id')
   updateProduct(@Body() ProductDto: ProductDto) {
-    return this.productService.updateProduct(
-      '61360b37e22bb325f4b64781',
-      ProductDto,
-    );
+    return this.productService.update('61360b37e22bb325f4b64781', ProductDto);
   }
 
   @Delete(':id')
   removeProduct(@Param('id') id: string) {
-    return this.productService.removeProduct(id);
+    return this.productService.delete(id);
   }
 }

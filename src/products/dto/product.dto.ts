@@ -1,5 +1,3 @@
-import { ObjectId } from 'mongoose';
-
 export class ProductDto {
   name: string;
 

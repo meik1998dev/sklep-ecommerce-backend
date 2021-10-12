@@ -12,7 +12,7 @@ export class SellersController {
 
   @Post('signup')
   createProfile(@Body() createSellerDto: CreateSellerDto) {
-    return this.sellerService.createSeller(createSellerDto);
+    return this.sellerService.create(createSellerDto);
   }
 
   @Put('profile')
@@ -20,7 +20,7 @@ export class SellersController {
     @Param('id') id: string,
     @Body() createSellerDto: CreateSellerDto,
   ) {
-    return this.sellerService.updateSeller(
+    return this.sellerService.update(
       '6135207bc44d401934aad40d',
       createSellerDto,
     );
@@ -28,11 +28,11 @@ export class SellersController {
 
   @Get('profile')
   getSellerProfile() {
-    return this.sellerService.findSellerById('6135207bc44d401934aad40d');
+    return this.sellerService.findById('6135207bc44d401934aad40d');
   }
 
   @Get('my_products')
   getAllSellerProducts() {
-    return this.productService.getAllSellerProducts('6135207bc44d401934aad40d');
+    return this.productService.findAllBySellerId('6135207bc44d401934aad40d');
   }
 }

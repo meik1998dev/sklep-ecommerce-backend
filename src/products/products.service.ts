@@ -11,19 +11,23 @@ export class ProductsService {
     private readonly productModel: Model<ProductDocument>,
   ) {}
 
-  async createProduct(sellerId: string, productDto: ProductDto) {
+  async create(sellerId: string, productDto: ProductDto) {
     return await new this.productModel({ ...productDto, sellerId }).save();
   }
 
-  async updateProduct(productId: string, productDto: ProductDto) {
+  async update(productId: string, productDto: ProductDto) {
     return await this.productModel.findByIdAndUpdate(productId, productDto);
   }
 
-  async removeProduct(productId: string) {
+  async delete(productId: string) {
     return await this.productModel.findByIdAndDelete(productId);
   }
 
-  async getAllSellerProducts(sellerId: string) {
+  async findById(id: string) {
+    return await this.productModel.findById(id);
+  }
+
+  async findAllBySellerId(sellerId: string) {
     return await this.productModel.find({
       sellerId: sellerId,
     });

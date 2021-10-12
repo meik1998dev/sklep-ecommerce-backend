@@ -11,18 +11,18 @@ export class SellersService {
     private readonly sellerModel: Model<SellerDocument>,
   ) {}
 
-  async createSeller(CreateSellerDto: CreateSellerDto) {
+  async create(CreateSellerDto: CreateSellerDto) {
     return await new this.sellerModel({
       ...CreateSellerDto,
       createdAt: new Date(),
     }).save();
   }
 
-  async updateSeller(id: string, createSellerDto: CreateSellerDto) {
+  async update(id: string, createSellerDto: CreateSellerDto) {
     return await this.sellerModel.findByIdAndUpdate(id, createSellerDto).exec();
   }
 
-  async findSellerById(id: string) {
+  async findById(id: string) {
     return await this.sellerModel.findById(id);
   }
 }

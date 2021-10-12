@@ -4,6 +4,8 @@ import { Product } from './product.schema';
 import { Review } from './review.schema';
 import * as mongoose from 'mongoose';
 
+export type customerDocument = Customer & Document;
+
 @Schema()
 export class Customer {
   @Prop({ required: true })
@@ -11,6 +13,12 @@ export class Customer {
 
   @Prop({ required: true })
   last_name: string;
+
+  @Prop({ required: true })
+  email: string;
+
+  @Prop()
+  phone: string;
 
   @Prop()
   profile_image: string;
@@ -21,14 +29,8 @@ export class Customer {
   @Prop([Review])
   reviews: Review[];
 
-  @Prop(
-    raw({
-      products: [
-        { productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } },
-      ],
-    }),
-  )
-  favoraits: Record<any, any>;
+  @Prop({ type: [mongoose.SchemaTypes.ObjectId], ref: 'Product', _id: true })
+  favoraits: Product[];
 }
 
 export var CustomerSchema = SchemaFactory.createForClass(Customer);
