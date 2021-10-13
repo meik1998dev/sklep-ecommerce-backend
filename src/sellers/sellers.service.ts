@@ -1,6 +1,7 @@
 import { Body, Injectable, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Order } from 'src/schemas/order.schema';
 import { Seller, SellerDocument } from 'src/schemas/seller.schema';
 import { CreateSellerDto } from './dto/create-seller.dto';
 

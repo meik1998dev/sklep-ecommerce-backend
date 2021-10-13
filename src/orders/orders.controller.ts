@@ -8,7 +8,7 @@ export class OrdersContorller {
 
   @Get()
   GetAllOrders() {
-    return this.ordersService.getAllOrdersByUser('61374990b8a3a23634dd4d0a');
+    return this.ordersService.getAllOrdersByCustomer('61374990b8a3a23634dd4d0a');
   }
 
   @Post()

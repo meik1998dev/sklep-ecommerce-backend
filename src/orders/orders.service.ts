@@ -12,14 +12,35 @@ export class OrdersService {
   ) {}
 
   async getAllOrdersByCustomer(id: Object) {
-    const orders = await this.OrderModel.find({ customer: id })
-      .populate('customer')
-      .populate('products.product');
+    const orders = await this.OrderModel.find({ customer: id }).populate(
+      'orders_list.product',
+    );
 
     if (!orders) {
       throw new HttpException('No Orders Found', HttpStatus.NO_CONTENT);
     }
+
     return orders;
+  }
+
+  async getAllOrdersBySeller(sellerId : Object) {
+    const orders = await this.OrderModel.find({}).populate(
+      'orders_list.product',
+    );
+
+    const sellerOrders = orders.map((order) => {
+      console.log(order);
+
+      return order.orders_list.map(({ product }) => {
+        if (product.sellerId.toHexString() === sellerId) {
+          return order;
+        }
+
+        return;
+      });
+    });
+
+    return sellerOrders;
   }
 
   async create(ordersDto: OrdersDto) {
@@ -29,6 +50,6 @@ export class OrdersService {
     });
     return await this.OrderModel.findById(_id)
       .populate('customer')
-      .populate('products.product');
+      .populate('orders_list.product');
   }
 }

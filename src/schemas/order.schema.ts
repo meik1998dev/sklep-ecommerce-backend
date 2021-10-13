@@ -9,7 +9,7 @@ export const OrderSchema = new mongoose.Schema({
     ref: 'Customer',
     required: true,
   },
-  products: [
+  orders_list: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
@@ -25,10 +25,10 @@ export const OrderSchema = new mongoose.Schema({
 
 export interface Order extends Document {
   customer: Customer;
-  products: ProductOrder[];
+  orders_list: {
+    product: Product;
+    quantity: number;
+  }[];
 }
 
-interface ProductOrder {
-  product: Product;
-  quantity: number;
-}
+

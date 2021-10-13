@@ -1,5 +1,5 @@
 export interface OrdersDto {
-  ordersList: {
+  orders_list: {
     productId: string;
     quantity: string;
   }[];
