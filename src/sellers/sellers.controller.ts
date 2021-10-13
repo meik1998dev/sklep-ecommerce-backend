@@ -42,4 +42,9 @@ export class SellersController {
   getAllOrders(){
     return this.OrdersService.getAllOrdersBySeller("6135207bc44d401934aad40d")
   }
+
+  @Put("orders/:id")
+  updateOrderStatus(){
+    return
+  }
 }

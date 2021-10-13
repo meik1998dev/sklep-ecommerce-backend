@@ -1,4 +1,3 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Product } from './product.schema';
 import { Customer } from './customer.schema';
@@ -9,7 +8,7 @@ export const OrderSchema = new mongoose.Schema({
     ref: 'Customer',
     required: true,
   },
-  orders_list: [
+  order_list: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,16 +18,22 @@ export const OrderSchema = new mongoose.Schema({
         type: Number,
         default: 1,
       },
+      status: {
+        type: String,
+        enum: ['Pending', 'Rejected', 'Accepted'],
+        default: 'Pending',
+      },
     },
   ],
 });
 
 export interface Order extends Document {
   customer: Customer;
-  orders_list: {
-    product: Product;
-    quantity: number;
-  }[];
+  order_list: OrderProducts[];
 }
 
-
+export interface OrderProducts {
+  product: Product;
+  quantity: number;
+  status: string;
+}

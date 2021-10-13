@@ -1,5 +1,5 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Order } from './order.schema';
+import { Order, OrderProducts } from './order.schema';
 import { Product } from './product.schema';
 import { Review } from './review.schema';
 import * as mongoose from 'mongoose';
@@ -24,7 +24,7 @@ export class Customer {
   profile_image: string;
 
   @Prop()
-  orders: Order[];
+  orders: OrderProducts[];
 
   @Prop([Review])
   reviews: Review[];

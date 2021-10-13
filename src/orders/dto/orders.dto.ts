@@ -1,6 +1,6 @@
+import { OrderProducts } from "src/schemas/order.schema";
+
 export interface OrdersDto {
-  orders_list: {
-    productId: string;
-    quantity: string;
-  }[];
+  order_list: OrderProducts[]
+
 }

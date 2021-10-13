@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
+import { customerDocument } from 'src/schemas/customer.schema';
 import { Order } from 'src/schemas/order.schema';
 import { OrdersDto } from './dto/orders.dto';
 
@@ -13,7 +14,7 @@ export class OrdersService {
 
   async getAllOrdersByCustomer(id: Object) {
     const orders = await this.OrderModel.find({ customer: id }).populate(
-      'orders_list.product',
+      'order_list.product',
     );
 
     if (!orders) {
@@ -23,15 +24,13 @@ export class OrdersService {
     return orders;
   }
 
-  async getAllOrdersBySeller(sellerId : Object) {
+  async getAllOrdersBySeller(sellerId: Object) {
     const orders = await this.OrderModel.find({}).populate(
-      'orders_list.product',
+      'order_list.product',
     );
 
     const sellerOrders = orders.map((order) => {
-      console.log(order);
-
-      return order.orders_list.map(({ product }) => {
+      return order.order_list.map(({ product }) => {
         if (product.sellerId.toHexString() === sellerId) {
           return order;
         }
@@ -43,13 +42,23 @@ export class OrdersService {
     return sellerOrders;
   }
 
+  async updateOrderStatus() {
+    return;
+  }
+
   async create(ordersDto: OrdersDto) {
     const { _id } = await this.OrderModel.create({
       ...ordersDto,
-      customer: '61374990b8a3a23634dd4d0a',
+      customer: '616702c692c2c054430127cf',
     });
     return await this.OrderModel.findById(_id)
       .populate('customer')
-      .populate('orders_list.product');
+      .populate('order_list.product');
   }
 }
+
+    // const customer = await this.CustomerModel.findById(customerId);
+
+    // createdOrder.order_list.map((order) => {
+    //   return customer.orders.push(order);
+    // });
