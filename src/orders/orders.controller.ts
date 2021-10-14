@@ -24,6 +24,7 @@ export class OrdersContorller {
     const customer = await this.customerService.findById(
       '616702c692c2c054430127cf',
     );
+
     createdOrder.order_list.map((order) => {
       customer.orders.push(order);
     });
@@ -31,6 +32,5 @@ export class OrdersContorller {
     await customer.save();
 
     return createdOrder;
-
   }
 }

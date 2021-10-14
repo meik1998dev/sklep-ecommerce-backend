@@ -6,6 +6,9 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
+@Prop({auto: true})
+_id : string
+
   @Prop({ required: true })
   name: string;
 

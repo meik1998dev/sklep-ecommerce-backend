@@ -38,13 +38,13 @@ export class SellersController {
     return this.productService.findAllBySellerId('6135207bc44d401934aad40d');
   }
 
-  @Get("orders")
-  getAllOrders(){
-    return this.OrdersService.getAllOrdersBySeller("6135207bc44d401934aad40d")
+  @Get('orders')
+  getAllOrders() {
+    return this.OrdersService.getAllOrdersBySeller('6135207bc44d401934aad40d');
   }
 
-  @Put("orders/:id")
-  updateOrderStatus(){
-    return
+  @Put('orders/:id')
+  updateOrderStatus(@Param('id') id: string, @Body() req) {
+    return this.OrdersService.updateOrderStatus(id, req.productId, req.status);
   }
 }

@@ -42,8 +42,20 @@ export class OrdersService {
     return sellerOrders;
   }
 
-  async updateOrderStatus() {
-    return;
+  async findOrderById(id: string) {
+    return await this.OrderModel.find({ 'order_list.product._id': id });
+  }
+
+  async updateOrderStatus(id: string, productId: string, status: string) {
+    const order = await this.OrderModel.findById(id);
+
+    const product = order.order_list.find((orderProduct) => {
+      return orderProduct.product._id.toString() === productId;
+    });
+
+    product.status = status;
+
+    return await order.save();
   }
 
   async create(ordersDto: OrdersDto) {
@@ -51,14 +63,8 @@ export class OrdersService {
       ...ordersDto,
       customer: '616702c692c2c054430127cf',
     });
-    return await this.OrderModel.findById(_id)
-      .populate('customer')
-      .populate('order_list.product');
+
+    // #TODO: populate product
+    return await this.OrderModel.findById(_id).populate('order_list');
   }
 }
-
-    // const customer = await this.CustomerModel.findById(customerId);
-
-    // createdOrder.order_list.map((order) => {
-    //   return customer.orders.push(order);
-    // });
