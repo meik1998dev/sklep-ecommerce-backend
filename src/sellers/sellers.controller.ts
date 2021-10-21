@@ -23,14 +23,14 @@ export class SellersController {
     @Body() createSellerDto: CreateSellerDto,
   ) {
     return this.sellerService.update(
-      '6135207bc44d401934aad40d',
+      '6165e6e7dfa6606436c92d42',
       createSellerDto,
     );
   }
 
   @Get('profile')
   getSellerProfile() {
-    return this.sellerService.findById('6135207bc44d401934aad40d');
+    return this.sellerService.findById('6165e6e7dfa6606436c92d42');
   }
 
   @Get('my_products')
@@ -47,4 +47,6 @@ export class SellersController {
   updateOrderStatus(@Param('id') id: string, @Body() req) {
     return this.OrdersService.updateOrderStatus(id, req.productId, req.status);
   }
+
+  
 }

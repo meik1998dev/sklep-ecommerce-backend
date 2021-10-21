@@ -50,7 +50,8 @@ export class OrdersService {
     const order = await this.OrderModel.findById(id);
 
     const product = order.order_list.find((orderProduct) => {
-      return orderProduct.product._id.toString() === productId;
+      const OrderedProduct = orderProduct.product;
+      return (OrderedProduct as any)?._id.toString() === productId;
     });
 
     product.status = status;
