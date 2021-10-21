@@ -1,15 +1,10 @@
-import { Product } from 'src/schemas/product.schema';
+import { IsString, MinLength } from 'class-validator';
 
-export class CustomersDto {
-  first_name: string;
+export class AuthCredentialsCustomerDto {
+   @IsString()
+   email: string;
 
-  last_name: string;
-
-  email: string;
-
-  password: string;
-
-  phone: string;
-
-  favoraits: Product[];
+   @IsString()
+   @MinLength(8)
+   password: string;
 }

@@ -1,6 +1,6 @@
 import { IsString, MinLength } from "class-validator";
 
-export class CreateSellerDto {
+export class AuthCredentialsDto {
   @IsString()
   name: string;
 
@@ -9,16 +9,4 @@ export class CreateSellerDto {
   password: string;
 
   email: string;
-
-  product_genre: string;
-
-  phone: string;
-
-  logo_Image: string;
-
-  website: string;
-
-  overview: string;
-
-  branches: string[];
 }

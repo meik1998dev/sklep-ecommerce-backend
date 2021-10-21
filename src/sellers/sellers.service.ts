@@ -1,37 +1,39 @@
-import { Body, ConflictException, Injectable, Param } from '@nestjs/common';
+import {  ConflictException, Injectable, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Order } from 'src/schemas/order.schema';
 import { Seller, SellerDocument } from 'src/schemas/seller.schema';
-import { CreateSellerDto } from './dto/create-seller.dto';
-
+import { AuthCredentialsDto } from './dto/create-seller.dto';
+import * as bcrypt from 'bcrypt';
+import { ProfileSellerDto } from './dto/profile-seller.dto';
 @Injectable()
 export class SellersService {
-  constructor(
-    @InjectModel(Seller.name)
-    private readonly sellerModel: Model<SellerDocument>,
-  ) {}
+   constructor(
+      @InjectModel(Seller.name)
+      private readonly sellerModel: Model<SellerDocument>,
+   ) {}
 
-  async signup(createSellerDto: CreateSellerDto) {
-    const exists = await this.sellerModel.findOne({
-      email: createSellerDto.email,
-    });
+   async signup(authCredentialsDto: AuthCredentialsDto) {
+      const exists = await this.sellerModel.findOne({
+         email: authCredentialsDto.email,
+      });
 
-    if (exists) {
-      throw new ConflictException('This email is already registerd');
-    }
+      if (exists) {
+         throw new ConflictException('This email is already registerd');
+      }
 
-    return await new this.sellerModel({
-      ...CreateSellerDto,
-      createdAt: new Date(),
-    }).save();
-  }
+      return await new this.sellerModel({
+         ...authCredentialsDto,
+         createdAt: new Date(),
+      }).save();
+   }
 
-  async update(id: string, createSellerDto: CreateSellerDto) {
-    return await this.sellerModel.findByIdAndUpdate(id, createSellerDto).exec();
-  }
+   async update(id: string, profileSellerDto: ProfileSellerDto) {
+      return await this.sellerModel
+         .findByIdAndUpdate(id, profileSellerDto)
+         .exec();
+   }
 
-  async findById(id: string) {
-    return await this.sellerModel.findById(id);
-  }
+   async findById(id: string) {
+      return await this.sellerModel.findById(id);
+   }
 }
