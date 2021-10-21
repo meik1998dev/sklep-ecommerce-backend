@@ -1,6 +1,10 @@
 export class CreateSellerDto {
   name: string;
 
+  password: string;
+
+  email: string;
+
   product_genre: string;
 
   phone: string;

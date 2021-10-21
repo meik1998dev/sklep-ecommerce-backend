@@ -13,7 +13,7 @@ export class SellersController {
   ) {}
 
   @Post('signup')
-  createProfile(@Body() createSellerDto: CreateSellerDto) {
+  signup(@Body() createSellerDto: CreateSellerDto) {
     return this.sellerService.create(createSellerDto);
   }
 

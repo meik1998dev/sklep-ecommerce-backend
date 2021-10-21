@@ -7,6 +7,8 @@ export class CustomersDto {
 
   email: string;
 
+  password: string;
+
   phone: string;
 
   favoraits: Product[];

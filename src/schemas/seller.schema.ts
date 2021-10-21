@@ -11,10 +11,16 @@ export class Seller {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({required : true})
+  email: string;
+
+  @Prop({required : true})
+  password: string;
+
+  @Prop()
   product_genre: string;
 
-  @Prop({ required: true })
+  @Prop()
   phone: string;
 
   @Prop()
