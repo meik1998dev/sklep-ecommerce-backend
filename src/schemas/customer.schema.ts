@@ -9,16 +9,19 @@ export type customerDocument = Customer & Document;
 @Schema()
 export class Customer {
   @Prop({ required: true })
-  first_name: string;
+  firstName: string;
 
   @Prop({ required: true })
-  last_name: string;
+  lastName: string;
 
   @Prop({ required: true })
   email: string;
 
   @Prop({required : true})
   password: string;
+
+  @Prop({required : true})
+  salt: string;
 
   @Prop()
   phone: string;

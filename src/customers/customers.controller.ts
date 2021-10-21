@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
 import { ProductsService } from 'src/products/products.service';
 import { CustomerService } from './customers.service';
-import { CustomersDto } from './dto/customers.dto';
 import * as mongoose from 'mongoose';
+import { AuthCredentialsCustomerDto } from './dto/customers.dto';
+import { ProfileCustomerDto } from './dto/profile-customer.dto';
 @Controller('customer')
 export class CustomerController {
   constructor(
@@ -11,12 +12,12 @@ export class CustomerController {
   ) {}
 
   @Post('signup')
-  signupCustomer(@Body() customersDto: CustomersDto) {
-    return this.customerService.signup(customersDto);
+  signupCustomer(@Body() authCredentialsCustomerDto: AuthCredentialsCustomerDto) {
+    return this.customerService.signup(authCredentialsCustomerDto);
   }
 
   @Put('profile')
-  updateCustomer(@Body() customersDto: CustomersDto) {
+  updateCustomer(@Body() customersDto: ProfileCustomerDto) {
     return this.customerService.update(
       '6135207bc44d401934aad40d',
       customersDto,

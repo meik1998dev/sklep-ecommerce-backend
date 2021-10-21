@@ -17,6 +17,9 @@ export class Seller {
   @Prop({required : true})
   password: string;
 
+  @Prop({required : true})
+  salt: string;
+
   @Prop()
   product_genre: string;
 

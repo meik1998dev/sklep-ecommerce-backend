@@ -1,4 +1,4 @@
-import {  ConflictException, Injectable, Param } from '@nestjs/common';
+import { ConflictException, Injectable, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Seller, SellerDocument } from 'src/schemas/seller.schema';
@@ -13,18 +13,23 @@ export class SellersService {
    ) {}
 
    async signup(authCredentialsDto: AuthCredentialsDto) {
+      const { email, name, password } = authCredentialsDto;
+
       const exists = await this.sellerModel.findOne({
-         email: authCredentialsDto.email,
+         email,
       });
 
       if (exists) {
          throw new ConflictException('This email is already registerd');
       }
 
-      return await new this.sellerModel({
-         ...authCredentialsDto,
-         createdAt: new Date(),
-      }).save();
+      const seller =  new this.sellerModel();
+      seller.email = email;
+      seller.name = name;
+      seller.salt = await bcrypt.genSalt();
+      seller.password = await this.hashPassword(password, seller.salt);      
+
+      return await seller.save();
    }
 
    async update(id: string, profileSellerDto: ProfileSellerDto) {
@@ -35,5 +40,9 @@ export class SellersService {
 
    async findById(id: string) {
       return await this.sellerModel.findById(id);
+   }
+
+   private async hashPassword(password: string, salt: string) {
+      return bcrypt.hash(password, salt);
    }
 }
