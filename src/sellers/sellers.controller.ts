@@ -14,7 +14,7 @@ export class SellersController {
 
   @Post('signup')
   signup(@Body() createSellerDto: CreateSellerDto) {
-    return this.sellerService.create(createSellerDto);
+    return this.sellerService.signup(createSellerDto);
   }
 
   @Put('profile')

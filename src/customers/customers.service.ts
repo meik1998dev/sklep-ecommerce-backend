@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Customer, customerDocument } from 'src/schemas/customer.schema';
@@ -11,8 +11,19 @@ export class CustomerService {
     private readonly customerModel: Model<customerDocument>,
   ) {}
 
-  async create(customersDto: CustomersDto) {
-    return await new this.customerModel(customersDto).save();
+  async signup(customersDto: CustomersDto) {
+    const exists = await this.customerModel.findOne({
+      email: customersDto.email,
+    });
+
+    if (exists) {
+      throw new ConflictException('This email is already registerd');
+    }
+
+    return await new this.customerModel({
+      ...customersDto,
+      createdAt: new Date(),
+    }).save();
   }
 
   async update(id: string, customersDto: CustomersDto) {

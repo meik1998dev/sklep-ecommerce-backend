@@ -11,8 +11,8 @@ export class CustomerController {
   ) {}
 
   @Post('signup')
-  createCustomer(@Body() customersDto: CustomersDto) {
-    return this.customerService.create(customersDto);
+  signupCustomer(@Body() customersDto: CustomersDto) {
+    return this.customerService.signup(customersDto);
   }
 
   @Put('profile')

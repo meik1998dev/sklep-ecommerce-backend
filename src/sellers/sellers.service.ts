@@ -1,4 +1,4 @@
-import { Body, Injectable, Param } from '@nestjs/common';
+import { Body, ConflictException, Injectable, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Order } from 'src/schemas/order.schema';
@@ -12,7 +12,15 @@ export class SellersService {
     private readonly sellerModel: Model<SellerDocument>,
   ) {}
 
-  async create(CreateSellerDto: CreateSellerDto) {
+  async signup(createSellerDto: CreateSellerDto) {
+    const exists = await this.sellerModel.findOne({
+      email: createSellerDto.email,
+    });
+
+    if (exists) {
+      throw new ConflictException('This email is already registerd');
+    }
+
     return await new this.sellerModel({
       ...CreateSellerDto,
       createdAt: new Date(),
