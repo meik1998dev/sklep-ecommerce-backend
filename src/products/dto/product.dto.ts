@@ -5,6 +5,8 @@ export class ProductDto {
 
   status: string;
 
+  price: string;
+
   sold_count: number;
 
   main_image: string;

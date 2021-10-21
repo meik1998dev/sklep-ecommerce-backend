@@ -6,14 +6,17 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
-@Prop({auto: true})
-_id : string
+  // @Prop({ auto: true })
+  // _id: string;
 
   @Prop({ required: true })
   name: string;
 
   @Prop({ required: true })
   category: string;
+  
+  @Prop({ required: true })
+  price: string;
 
   @Prop({ required: true, enum: ['Used', 'New', 'Not available now'] })
   status: string;
