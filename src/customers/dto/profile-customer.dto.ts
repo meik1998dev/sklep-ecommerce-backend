@@ -1,9 +1,9 @@
 import { Product } from 'src/schemas/product.schema';
 
 export class ProfileCustomerDto {
-   first_name: string;
+   firstName: string;
 
-   last_name: string;
+   lastName: string;
    
    phone: string;
 

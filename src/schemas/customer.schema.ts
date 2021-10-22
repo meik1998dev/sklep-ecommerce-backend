@@ -8,10 +8,10 @@ export type customerDocument = Customer & Document;
 
 @Schema()
 export class Customer {
-  @Prop({ required: true })
+  @Prop()
   firstName: string;
 
-  @Prop({ required: true })
+  @Prop()
   lastName: string;
 
   @Prop({ required: true })

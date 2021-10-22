@@ -8,7 +8,7 @@ export type SellerDocument = Seller & Document;
 
 @Schema()
 export class Seller {
-  @Prop({ required: true })
+  @Prop()
   name: string;
 
   @Prop({required : true})

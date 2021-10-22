@@ -13,7 +13,7 @@ export class CustomerService {
    ) {}
 
    async signup(authCredentialsCustomerDto: AuthCredentialsCustomerDto) {
-      const { firstName, lastName, email, password } =
+      const { email, password } =
          authCredentialsCustomerDto;
 
       const exists = await this.customerModel.findOne({
@@ -26,8 +26,6 @@ export class CustomerService {
 
       const customer = new this.customerModel();
       customer.email = email;
-      customer.firstName = firstName;
-      customer.lastName = lastName;
       customer.salt = await bcrypt.genSalt();
       customer.password = await this.hashPassword(password, customer.salt);
 

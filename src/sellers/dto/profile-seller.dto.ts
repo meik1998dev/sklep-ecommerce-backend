@@ -1,4 +1,9 @@
+import { IsString } from "class-validator";
+
 export class ProfileSellerDto {
+   @IsString()
+   name: string; 
+
    product_genre: string;
 
    phone: string;

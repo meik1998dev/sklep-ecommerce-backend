@@ -13,7 +13,7 @@ export class SellersService {
    ) {}
 
    async signup(authCredentialsDto: AuthCredentialsDto) {
-      const { email, name, password } = authCredentialsDto;
+      const { email, password } = authCredentialsDto;
 
       const exists = await this.sellerModel.findOne({
          email,
@@ -25,12 +25,12 @@ export class SellersService {
 
       const seller =  new this.sellerModel();
       seller.email = email;
-      seller.name = name;
       seller.salt = await bcrypt.genSalt();
       seller.password = await this.hashPassword(password, seller.salt);      
 
       return await seller.save();
    }
+
 
    async update(id: string, profileSellerDto: ProfileSellerDto) {
       return await this.sellerModel
@@ -38,11 +38,14 @@ export class SellersService {
          .exec();
    }
 
+
    async findById(id: string) {
       return await this.sellerModel.findById(id);
    }
 
+   
    private async hashPassword(password: string, salt: string) {
       return bcrypt.hash(password, salt);
    }
+
 }
