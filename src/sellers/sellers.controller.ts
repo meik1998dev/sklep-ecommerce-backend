@@ -14,8 +14,13 @@ export class SellersController {
    ) {}
 
    @Post('signup')
-   signup(@Body() authCredentialsDto: AuthCredentialsDto) {
+   signupSeller(@Body() authCredentialsDto: AuthCredentialsDto) {
       return this.sellerService.signup(authCredentialsDto);
+   }
+
+   @Post('signin')
+   signinCustomer(@Body() authCredentialsDto: AuthCredentialsDto) {
+      return this.sellerService.signin(authCredentialsDto);
    }
 
    @Put('profile')
