@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { SellersService } from 'src/sellers/sellers.service';
+import { UsersService } from 'src/users/users.service';
 import { ProductDto } from './dto/product.dto';
 import { ProductsService } from './products.service';
 
@@ -15,14 +15,14 @@ import { ProductsService } from './products.service';
 export class ProductsController {
   constructor(
     private readonly productService: ProductsService,
-    private readonly sellerService: SellersService,
+    private readonly userService: UsersService,
   ) {}
 
   // Create product by seller
   @Post()
   async CreateProduct(@Body() productDto: ProductDto) {
     // find the seller that will add the product
-    const seller = await this.sellerService.findById(
+    const seller = await this.userService.findById(
       '6135207bc44d401934aad40d',
     );
     // create a product according to the body request
@@ -31,11 +31,11 @@ export class ProductsController {
       productDto,
     );
     //update seller's products array
-    seller.products.push(createdProduct);
+    seller.sellerProfile.products.push(createdProduct);
 
     await seller.save();
 
-    return (await seller.populate('products')).products;
+    return (await seller.populate('products')).sellerProfile.products;
   }
 
   // Update product informations
@@ -46,18 +46,18 @@ export class ProductsController {
 
   @Delete(':id')
   async removeProduct(@Param('id') id: string) {
-    const seller = await this.sellerService.findById(
+    const seller = await this.userService.findById(
       '6135207bc44d401934aad40d',
     );
 
-    const newArr = seller.products.filter((product: any) => {
+    const newArr = seller.sellerProfile.products.filter((product: any) => {
       return product._id != id;
     });
 
-    seller.products = newArr;
+    seller.sellerProfile.products = newArr;
 
     await seller.save();
 
-    return (await seller.populate('products')).products;
+    return (await seller.populate('products')).sellerProfile.products;
   }
 }
